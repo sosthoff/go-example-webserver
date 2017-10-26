@@ -15,11 +15,12 @@ node {
             sh 'go test' 
         }
     }
+
+    def DOCKER_HUB_ACCOUNT = '<docker-hub-username>'
+    def DOCKER_IMAGE_NAME = 'go-example-webserver'
+
+    echo 'Building Docker image'
+    stage('BuildImage') 
+    def app = docker.build("${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}", '.')
 }
 
-def DOCKER_HUB_ACCOUNT = '<docker-hub-username>'
-def DOCKER_IMAGE_NAME = 'go-example-webserver'
-
-echo 'Building Docker image'
-stage('BuildImage') 
-def app = docker.build("${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}", '.')
